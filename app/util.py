@@ -132,7 +132,7 @@ def extract_universities(input_file, start=None):
         raise Exception("Please specifc a correct input path")
     
     if start:
-        start_idx = df.index[ df.name == start ].tolist()
+        start_idx = df_res.index[ df_res.name == start ].tolist()
         if start_idx:
             start_idx = start_idx[0]
         else:

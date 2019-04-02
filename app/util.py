@@ -89,7 +89,7 @@ def get_tuition_text(wa_pod, key=None):
 def tuition_pipe(wa_client, uni_inp):
 
     which_retry = 0
-    max_retry = 10
+    max_retry = 5
 
     while True and (which_retry < max_retry):
         the_query = get_query(wa_client, uni_inp)
@@ -102,9 +102,8 @@ def tuition_pipe(wa_client, uni_inp):
             sleep(retry_sleep_time)
 
     if not the_query.get('success'):
-        raise Exception('Could not get data for: {}'.format(uni_inp), the_query )
+        logging.info('Could not get data for: {}'.format(uni_inp), the_query )
         the_tuition_text = {'tuition': 'No Data'}
-        pass
     else:
         the_tuition_text = get_tuition_text(the_query.get('pod',{}) )
         

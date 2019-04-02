@@ -51,8 +51,16 @@ def retry_timer(which_retry, retry_base_interval, mode = None):
 
 
 def get_query(wa_client, uni_inp):
-    
-    res_out = wa_client.query(uni_inp)
+
+    try:
+        res_out = wa_client.query(uni_inp)
+    except Exception as ee:
+        raise Exception(ee)
+        return {
+            'success': False,
+            'university': uni_inp,
+            'pod': None
+        }
     
     if res_out.get('@success') == 'true':
         return {

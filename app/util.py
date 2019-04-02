@@ -2,7 +2,8 @@ import wolframalpha
 import random
 import logging
 from time import sleep
-
+import pandas as pd
+import os
 
 
 
@@ -96,7 +97,7 @@ def tuition_pipe(wa_client, uni_inp):
             break
         else:
             which_retry = which_retry + 1
-            retry_sleep_time = _retry_timer( which_retry, 5, mode = 'multirand' ).get('interval')
+            retry_sleep_time = retry_timer( which_retry, 5, mode = 'multirand' ).get('interval')
             logging.debug('Retry ({}) in {} seconds.'.format(which_retry, retry_sleep_time), flush=True)
             sleep(retry_sleep_time)
 
@@ -110,3 +111,26 @@ def tuition_pipe(wa_client, uni_inp):
     res = { **the_query, **the_tuition_text }
 
     return res
+
+def extract_universities(input_file, start=None):
+
+    if os.path.isfile(input_file):
+        try:
+            df_res = pd.read_csv(input_file)
+        except Exception as ee:
+            raise Exception(
+                "Could not load input to dataframe"
+            )
+    else:
+        raise Exception("Please specifc a correct input path")
+    
+    if start:
+        start_idx = df.index[ df.name == 'Morris College' ].tolist()
+        if start_idx:
+            start_idx = start_idx[0]
+        else:
+            start_idx = 0
+        if start_idx:
+            df_res = df_res.loc[start_idx:]
+
+    return df_res.name.values.tolist()

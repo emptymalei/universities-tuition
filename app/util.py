@@ -97,7 +97,7 @@ def get_tuition_text(wa_pod, key=None):
 def tuition_pipe(wa_client, uni_inp):
 
     which_retry = 0
-    max_retry = 20
+    max_retry = 2
 
     while True and (which_retry < max_retry):
         the_query = get_query(wa_client, uni_inp)
@@ -105,7 +105,7 @@ def tuition_pipe(wa_client, uni_inp):
             break
         else:
             which_retry = which_retry + 1
-            retry_sleep_time = retry_timer( which_retry, 20, mode = 'multirand' ).get('interval')
+            retry_sleep_time = retry_timer( which_retry, 30, mode = 'multirand' ).get('interval')
             logging.debug('Retry ({}) in {} seconds.'.format(which_retry, retry_sleep_time), flush=True)
             sleep(retry_sleep_time)
 

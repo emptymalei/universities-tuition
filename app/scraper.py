@@ -55,7 +55,7 @@ def main():
     parser.add_argument(
         '--sleep', 
         dest='sleep_seconds', 
-        default='2',
+        default='10',
         help='Time to sleep before start the next university; This is added to prevent the ip from being banned.'
         )
 

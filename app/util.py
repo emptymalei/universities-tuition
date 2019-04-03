@@ -83,10 +83,11 @@ def get_tuition_text(wa_pod, key=None):
     
     tuition_fee_text = None
 
-    for pod in wa_pod:
-        if pod.get('@title') == 'Tuition':
-            tuition_fee_text = pod.get('subpod', {}).get('plaintext')
-            break
+    if wa_pod:
+        for pod in wa_pod:
+            if pod.get('@title') == 'Tuition':
+                tuition_fee_text = pod.get('subpod', {}).get('plaintext')
+                break
     
     if not tuition_fee_text:
         tuition_fee_text = 'No Data'
